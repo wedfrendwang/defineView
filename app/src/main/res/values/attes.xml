@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="textColorView">
+
+        <!--在自定义的属性中，添加渐变的始末颜色值-->
+        <attr name="startColor" format="color|reference"></attr>
+        <attr name="endColor" format="color|reference"></attr>
+        <!-- angle  按照android的使用惯例，逆时针转变方式-->
+        <attr name="angle" format="integer"></attr>
+
+        <!-- 需要绘制的字符串-->
+        <attr name="text" format="string|reference"></attr>
+        
+        <!-- 绘制梯形背景图片的比例单位 -->
+        <attr name="scalingParent" format="integer"></attr>
+
+        <attr name="scalingChild" format="integer"></attr>
+
+        <attr name="rotateAngle" format="integer"></attr>
+
+    </declare-styleable>
+</resources>

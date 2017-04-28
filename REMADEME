@@ -1,0 +1,447 @@
+package com.crazymo.views.widget;
+
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.crazymo.views.R;
+
+/**
+ * auther: Crazy.Mo
+ * Date: 2016/12/26
+ * Time:18:08
+ * Des:
+ */
+public class NavTopBar extends RelativeLayout implements View.OnClickListener {
+    private Context context;
+    private TextView textView;
+    private ImageView imageRight;
+    private ImageView imageLeft;
+    private NavOnClickListener navOnClickListener;
+    private RelativeLayout topBg;
+    private int bcgroundResId;
+    private Drawable leftImgId,rightImgId;
+
+    public NavTopBar(Context context) {
+        super(context);
+        this.context = context;
+    }
+
+    public NavTopBar(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.context = context;
+        init(attrs);
+    }
+
+    public NavTopBar(@NonNull Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.context = context;
+        init(attrs);
+    }
+
+    private void init(AttributeSet attrs) {
+
+        View contentView = LayoutInflater.from(this.context).inflate(R.layout.navtop_layout, this, true);
+        imageLeft = (ImageView) contentView.findViewById(R.id.id_nav_left);
+        imageRight = (ImageView) contentView.findViewById(R.id.id_nav_right);
+        topBg = (RelativeLayout) contentView.findViewById(R.id.rl_top_bg);
+        textView = (TextView) contentView.findViewById(R.id.id_mid_nav);
+        initAttr(attrs);
+        //topBg.setBackgroundResource(bcgroundResId);
+        topBg.setBackgroundColor(bcgroundResId);
+        imageLeft.setOnClickListener(this);
+        imageRight.setOnClickListener(this);
+    }
+
+    private void initAttr(AttributeSet attrs){
+        TypedArray types = context.obtainStyledAttributes(attrs,
+                R.styleable.nav_top_bar);
+        try {
+            bcgroundResId = types.getColor( R.styleable.nav_top_bar_bacgroud_color,getResources().getColor(R.color.blue ));
+        } finally {
+            types.recycle(); // TypeArray用完需要recycle
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (navOnClickListener != null) {
+            switch (v.getId()) {
+                case R.id.id_nav_left:
+                    navOnClickListener.leftOnClickListener();
+                    break;
+                case R.id.id_nav_right:
+                    navOnClickListener.rightOnClickListener();
+                    break;
+            }
+        }
+    }
+
+    public void setNavBackground(int resId){
+        topBg.setBackgroundResource(resId);
+    }
+
+    public void setTitle(String title) {
+        textView.setText(title);
+    }
+
+    public void setNavOnClickListener(NavOnClickListener onClickListener) {
+        navOnClickListener = onClickListener;
+    }
+
+    public interface NavOnClickListener {
+        void leftOnClickListener();
+        void rightOnClickListener();
+    }
+
+    /**
+     * 设置默认的左边按钮的背景图
+     * @param resouseId
+     */
+    public void setLeftImage(int resouseId) {
+        imageLeft.setImageResource(resouseId);
+    }
+
+    public void setRightImage(int resouseId) {
+        imageRight.setImageResource(resouseId);
+    }
+
+    /**
+     * 设置是否显示左右按钮
+     * @param left
+     * @param right
+     */
+    public void setBarImageDisplay(boolean left, boolean right) {
+        if(left){
+            imageLeft.setVisibility(VISIBLE);
+        }else {
+            imageLeft.setVisibility(GONE);
+        }
+        if(right) {
+            imageRight.setVisibility(VISIBLE);
+        }else {
+            imageRight.setVisibility(GONE);
+        }
+    }
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+四、使用自定义ToolBar
+
+属性attr.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="nav_top_bar">
+        <attr name="bacgroud_color" format="reference"/>
+    </declare-styleable>
+</resources>
+1
+2
+3
+4
+5
+6
+1
+2
+3
+4
+5
+6
+布局文件
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:crazymo="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.crazymo.views.MainActivity">
+
+    <com.crazymo.views.widget.NavTopBar
+        android:id="@+id/nav_top_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        crazymo:bacgroud_color="@color/colorPrimary"
+    />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/ic_crazymo_logo"/>
+
+</RelativeLayout>
